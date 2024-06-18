@@ -7,8 +7,8 @@ import Footer from "@/components/Footer";
 
 
 export const metadata: Metadata = {
-  title: "Travel App",
-  description: "Travel UI/UX App for camping",
+  title: "BMW Dealer",
+  description: "BMW Dealer",
 };
 
 export default function RootLayout({
@@ -24,7 +24,7 @@ export default function RootLayout({
         {children}
         </main>
        
-        <Footer/>
+        
       </body>
     </html>
   );
