@@ -3,9 +3,10 @@ import SelectModel from "@/components/SelectModel";
 
 
 export default function PartsPage() {
+  const location = 'Parts Catalogue'
   return (
     <>
-      <SelectModel />
+      <SelectModel location={location}  />
     </>
   );
 }
