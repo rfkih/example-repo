@@ -2,7 +2,7 @@
 export const NAV_LINKS = [
     { href: '/', key: 'home', label: 'Home' },
     { href: '/parts', key: 'parts_catalogue', label: 'Parts Catalogue' },
-    { href: '/', key: 'accessories_catalogue', label: 'Accessories Catalogue' },
+    { href: '/accessories', key: 'accessories_catalogue', label: 'Accessories Catalogue' },
     { href: '/', key: 'nearest_workshop ', label: 'Nearest Workshop ' },
     { href: '/', key: 'contact_us', label: 'Contact Us' },
   ];
@@ -10,8 +10,6 @@ export const NAV_LINKS = [
 
   // NAVIGATION
 export const MODELS = [
-  { href: 'Z4', key: 'Z4', label: 'Z4' },
-  { href: '2', key: '2', label: '2' },
   { href: '3', key: '3', label: '3' },
   { href: '5', key: '5', label: '5' },
   { href: '7', key: '7', label: '7' },

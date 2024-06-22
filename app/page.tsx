@@ -12,9 +12,7 @@ import GetApp from "@/components/GetApp";
 export default function Home() {
   const router = useRouter();
 
-  const navigateToGuide = () => {
-    router.push('/parts');
-  };
+
 
   return (
     <>

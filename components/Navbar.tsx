@@ -3,9 +3,33 @@ import { NAV_LINKS } from "@/constants"
 import Image from "next/image"
 import Link from "next/link"
 import Button from "./Button"
+import { useState, useEffect  } from 'react';
 
 
 const Navbar = () => {
+  const [selected, setSelected] = useState('');
+
+
+
+  const handleLinkClick = (id: string) => {
+  
+    setSelected(id); // Update selected state to the clicked i
+  };
+
+  const getLinkClassName = (linkId: string) => {
+    if (selected === linkId) {
+      return "font-bold text-gray-50 flexCenter cursor-pointer pb-1.5 ";
+    } else {
+      console.log("bold bukan disini")
+      return "regular-16 hover:font-bold text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all ";
+    }
+  };
+
+
+  useEffect(() => {
+    setSelected('home')
+   
+  }, []);
 
 
   return (
@@ -15,7 +39,7 @@ const Navbar = () => {
       </Link>
       <ul className="hidden h-full gap-12 lg:flex">
           {NAV_LINKS.map((link) => (
-            <Link href={link.href}  key={link.key} className="regular-16 text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all hover:font-bold">
+            <Link id={link.key}  onClick={() => handleLinkClick(link.key)} href={link.href}  key={link.key} className={getLinkClassName(link.key)}>
               {link.label}
             </Link>
           ))}
