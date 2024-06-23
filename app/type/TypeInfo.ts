@@ -4,9 +4,15 @@ export interface CreatePostRequest {
     title: string;
     body: string;
   }
+
+  export interface CarProps{
+    typeID: number;
+    Type: string;
+    Series: string;
+    ImageLink: string;
+  }
+
   
   export interface CreatePostResponse {
-    id: number;
-    title: string;
-    body: string;
+    cars: CarProps[];
   }

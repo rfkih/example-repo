@@ -1,51 +1,52 @@
 import { PEOPLE_URL } from "@/constants";
 import Image from "next/image";
+import { CreatePostRequest, CreatePostResponse, CarProps } from '../app/type/TypeInfo';
 
-interface CarProps{
-    backgroundImage: string;
-    title: string;
-    subtitle: string;
-    peopleJoined: string;
+// interface CarProps{
+//     typeID: number;
+//     type: string;
+//     Series: string;
+//     ImageLink: string;
+// }
+
+
+
+interface CarItems {
+  items: CarProps[];
 }
 
-const CarModel = ({backgroundImage, title, subtitle, peopleJoined} : CarProps) => {
+const CarModel = ({typeID,Type, Series, ImageLink  } : CarProps) => {
+
+
     return (
         <div className="max-w-sm rounded-sm bg-white hover:brightness-110 cursor-pointer hover:font-bold">
             <Image
-              src={backgroundImage}
+              src={ImageLink}
               alt="map"
               width={100}
               height={100}
               className="rounded-lg"
             />
             <div className="flexCenter">
-              <h4 className="regular-16 text-gray-50 regular-14">{title}</h4>
+              <h4 className="regular-16 text-gray-50 regular-14">{Type}</h4>
             </div>
         </div>
     )
 }
 
-const Car = () => {
+const Car = ({cars} : CreatePostResponse) => {
+ 
   return (
     <section className='flexCenter 2xl:max-container relative  flex-col '>
         <div className='hide-scrollbar flex w-full items-start justify-start gap-8  '>
-            <CarModel
-            backgroundImage="/e30.png" 
-            title="BMW E30"
-            subtitle="Prigen, Pasuruan"
-            peopleJoined="50+ Joined"/> 
-            <CarModel
-            backgroundImage="/e36.png" 
-            title="BMW E36"
-            subtitle="Somwhere in the Wilderness"
-            peopleJoined="50+ Joined"
-            />
-            <CarModel
-            backgroundImage="/e46.png" 
-            title="BMW E46"
-            subtitle="Somwhere in the Wilderness"
-            peopleJoined="50+ Joined"
-            />
+        {cars.map((car) => (
+              <CarModel
+                typeID={car.typeID} // Use a unique key for each component when using .map()
+                ImageLink={car.ImageLink}
+                Series={car.Series}
+                Type={car.Type}
+              />
+            ))}
         </div>
     </section>
   )

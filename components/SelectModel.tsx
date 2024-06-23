@@ -7,7 +7,7 @@ import { useState, useEffect  } from 'react';
 import Car from './Car'
 import { GetServerSideProps } from 'next';
 import axiosInstance from '../app/lib/axiosInstance';
-import { CreatePostRequest, CreatePostResponse } from '../app/type/TypeInfo';
+import { CreatePostRequest, CreatePostResponse, CarProps } from '../app/type/TypeInfo';
 import axios from 'axios';
 
 
@@ -16,11 +16,16 @@ type SelectModelProps = {
   
 }
 
+
+
+
 const SelectModel = ({location}: SelectModelProps) => {
     const [type, setType] = useState('3');
     const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
-    const [response, setResponse] = useState<CreatePostResponse | null>(null);
+
+  
+    const [response, setResponse] = useState<CarProps[]>([]);
     const [error, setError] = useState<string | null>(null);
     const models = MODELS;
 
@@ -29,13 +34,16 @@ const SelectModel = ({location}: SelectModelProps) => {
         setTitle('Fetch Type Info');
       
         try {
-          const response = await axiosInstance.get<CreatePostResponse>('/info/type', {
+          const respon = await axiosInstance.get<CarProps[]>('/info/type', {
             params: {
               type: type, // Ensure 'type' matches the parameter name expected by your API
             },
           });
-      
-          setResponse(response.data);
+
+          console.log(respon.data)
+
+          setResponse(respon.data);
+  
           setError(null);
         } catch (err) {
           if (axios.isAxiosError(err)) {
@@ -43,7 +51,7 @@ const SelectModel = ({location}: SelectModelProps) => {
           } else {
             setError('An unknown error occurred');
           }
-          setResponse(null);
+          setResponse([]);
         }
       };
 
@@ -65,7 +73,7 @@ const SelectModel = ({location}: SelectModelProps) => {
         </div>
         <div className='  h-content'>
             <Navigation items={models} setType={setType} />
-            <Car/> 
+            <Car cars={response} /> 
         </div>
         
    </section>
