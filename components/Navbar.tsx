@@ -20,7 +20,6 @@ const Navbar = () => {
     if (selected === linkId) {
       return "font-bold text-gray-50 flexCenter cursor-pointer pb-1.5 ";
     } else {
-      console.log("bold bukan disini")
       return "regular-16 hover:font-bold text-gray-50 flexCenter cursor-pointer pb-1.5 transition-all ";
     }
   };

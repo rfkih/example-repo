@@ -9,15 +9,15 @@ type NavigationProps = {
 
 interface NavigationItems {
     items: NavigationProps[];
-    setGeneration: any;
+    setType: any;
   }
 
-const Navigation = ({items, setGeneration}: NavigationItems) => {
+const Navigation = ({items, setType}: NavigationItems) => {
   const [selected, setSelected] = useState('');
 
     const handleItemClick = (href: string) => {
 
-        setGeneration(href);
+        setType(href);
         setSelected(href);
       };
 
@@ -26,7 +26,6 @@ const Navigation = ({items, setGeneration}: NavigationItems) => {
         if (selected === linkId) {
           return "font-bold  px-3 py-3 flex text-gray-50 flex cursor-pointer  ";
         } else {
-          console.log("bold bukan disini")
           return "px-3 py-3 regular-16 text-gray-50 flex justify-start rounded-sm cursor-pointer  hover:font-bold";
         }
       };
