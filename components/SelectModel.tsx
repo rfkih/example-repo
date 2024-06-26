@@ -8,6 +8,7 @@ import Car from './Car'
 import { GetServerSideProps } from 'next';
 import axiosInstance from '../app/lib/axiosInstance';
 import { CreatePostRequest, CreatePostResponse, CarProps } from '../app/type/TypeInfo';
+import { TypeInfo, TypeInfoArray } from '@/app/dto/TypeINfo'
 import axios from 'axios';
 
 
@@ -25,7 +26,7 @@ const SelectModel = ({location}: SelectModelProps) => {
     const [body, setBody] = useState('');
 
   
-    const [response, setResponse] = useState<CarProps[]>([]);
+    const [response, setResponse] = useState<TypeInfo[]>([]);
     const [error, setError] = useState<string | null>(null);
     const models = MODELS;
 
@@ -34,9 +35,9 @@ const SelectModel = ({location}: SelectModelProps) => {
         setTitle('Fetch Type Info');
       
         try {
-          const respon = await axiosInstance.get<CarProps[]>('/info/type', {
+          const respon = await axiosInstance.get<TypeInfo[]>('/info/type', {
             params: {
-              type: type, // Ensure 'type' matches the parameter name expected by your API
+              type: type, 
             },
           });
 
@@ -73,7 +74,7 @@ const SelectModel = ({location}: SelectModelProps) => {
         </div>
         <div className='  h-content'>
             <Navigation items={models} setType={setType} />
-            <Car cars={response} /> 
+            <Car items={response} /> 
         </div>
         
    </section>

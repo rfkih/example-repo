@@ -1,7 +1,7 @@
 import { PEOPLE_URL } from "@/constants";
 import Image from "next/image";
 import { CreatePostRequest, CreatePostResponse, CarProps } from '../app/type/TypeInfo';
-
+import { TypeInfo, TypeInfoArray } from '@/app/dto/TypeINfo'
 // interface CarProps{
 //     typeID: number;
 //     type: string;
@@ -15,7 +15,7 @@ interface CarItems {
   items: CarProps[];
 }
 
-const CarModel = ({typeID,Type, Series, ImageLink  } : CarProps) => {
+const CarModel = ({typeID,Type, Series, ImageLink  } : TypeInfo) => {
 
 
     return (
@@ -34,17 +34,17 @@ const CarModel = ({typeID,Type, Series, ImageLink  } : CarProps) => {
     )
 }
 
-const Car = ({cars} : CreatePostResponse) => {
+const Car = ({items} : TypeInfoArray) => {
  
   return (
     <section className='flexCenter 2xl:max-container relative  flex-col '>
         <div className='hide-scrollbar flex w-full items-start justify-start gap-8  '>
-        {cars.map((car) => (
+        {items.map((item) => (
               <CarModel
-                typeID={car.typeID} // Use a unique key for each component when using .map()
-                ImageLink={car.ImageLink}
-                Series={car.Series}
-                Type={car.Type}
+                typeID={item.typeID} 
+                ImageLink={item.ImageLink}
+                Series={item.Series}
+                Type={item.Type}
               />
             ))}
         </div>
