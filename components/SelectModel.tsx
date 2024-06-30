@@ -8,8 +8,9 @@ import Car from './Car'
 import { GetServerSideProps } from 'next';
 import axiosInstance from '../app/lib/axiosInstance';
 import { CreatePostRequest, CreatePostResponse, CarProps } from '../app/type/TypeInfo';
-import { TypeInfo, TypeInfoArray } from '@/app/dto/TypeINfo'
+import { TypeInfo, TypeInfoArray } from '@/app/dto/TypeInfo'
 import axios from 'axios';
+import { useAppContext } from '@/app/context'
 
 
 type SelectModelProps = {
@@ -22,17 +23,16 @@ type SelectModelProps = {
 
 const SelectModel = ({location}: SelectModelProps) => {
     const [type, setType] = useState('3');
-    const [title, setTitle] = useState('');
     const [body, setBody] = useState('');
-
+    const { setCatalogue } = useAppContext();
   
     const [response, setResponse] = useState<TypeInfo[]>([]);
     const [error, setError] = useState<string | null>(null);
     const models = MODELS;
 
-
+    
     const fetchType = async (type: string) => {
-        setTitle('Fetch Type Info');
+       
       
         try {
           const respon = await axiosInstance.get<TypeInfo[]>('/info/type', {
@@ -41,7 +41,6 @@ const SelectModel = ({location}: SelectModelProps) => {
             },
           });
 
-          console.log(respon.data)
 
           setResponse(respon.data);
   
@@ -58,10 +57,12 @@ const SelectModel = ({location}: SelectModelProps) => {
 
 
     useEffect(() => {
-
         fetchType(type);
-       
       }, [type]);
+
+    useEffect(() => {
+      setCatalogue(location);
+    }, []);
     
   return (
     <section className=' flex justify-start 2xl:max-container relative flex-col lg:mb-10 lg:py-20 xl:mb-20'>
