@@ -1,10 +1,46 @@
 import { useAppContext } from '@/app/context';
+import { Categories } from '@/app/dto/Categories';
+import axiosInstance from '@/app/lib/axiosInstance';
+import axios from 'axios';
 import Image from 'next/image';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const PartCategories = () => {
 
   const { type, catalogue } = useAppContext();
+  const [response, setResponse] = useState<Categories[]>([]);
+  const [error, setError] = useState<string | null>(null);
+
+
+  const fetchCategories = async () => {
+
+    try {
+      const respon = await axiosInstance.get<Categories[]>('/info/categories', {
+        params: {
+          type: "parts", 
+        },
+      });
+
+
+      setResponse(respon.data);
+
+      console.log(response);
+
+      setError(null);
+    } catch (err) {
+      if (axios.isAxiosError(err)) {
+        setError(err.message);
+      } else {
+        setError('An unknown error occurred');
+      }
+      setResponse([]);
+    }
+  }
+
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   const categories = [
     { id: '1', title: 'Radiator', slug: 'radiator', image: '/radiator.png' },
@@ -13,7 +49,6 @@ const PartCategories = () => {
     { id: '4', title: 'Steering Wheel', slug: 'steering wheel', image: '/steeringWheel.png' },
     { id: '5', title: 'Wheel', slug: 'wheel', image: '/wheels.png' },
     { id: '6', title: 'Engine', slug: 'engine', image: '/engine.png' },
-
   ];
 
   return (
@@ -21,7 +56,7 @@ const PartCategories = () => {
      <h1 className="text-3xl font-semibold mb-6 text-gray-50">Categories</h1>
      <h4 className="px-3 py-3 regular-18 text-gray-50">{type}</h4>
       <div className="grid grid-cols-2  sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-        {categories.map(category => (
+        {response.map(category => (
           <div key={category.id} className=" border-2 relative cursor-pointer flex flex-col justify-end rounded-lg shadow-md overflow-hidden hover:shadow-xl transition duration-300 ease-in-out">
             <div className="relative p-4 h-48 w-full ">
               <Image

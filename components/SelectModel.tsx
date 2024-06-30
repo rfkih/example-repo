@@ -33,7 +33,6 @@ const SelectModel = ({location}: SelectModelProps) => {
     
     const fetchType = async (type: string) => {
        
-      
         try {
           const respon = await axiosInstance.get<TypeInfo[]>('/info/type', {
             params: {
